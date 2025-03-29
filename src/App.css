@@ -1,0 +1,208 @@
+.App {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  margin-bottom: 30px;
+  border-radius: 8px;
+}
+
+.input-section {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-section h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+}
+
+input[type="file"] {
+  margin: 10px 0;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.results-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.results-section h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.results-section p {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #666;
+}
+
+.error-section {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 4px;
+}
+
+.error-message {
+  color: #c62828;
+  margin: 0;
+  font-size: 16px;
+}
+
+.resume-content {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  white-space: pre-wrap;
+}
+
+.resume-section {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.resume-header {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 15px 0 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.resume-line {
+  font-size: 14px;
+  margin: 5px 0;
+  line-height: 1.5;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.resume-line:empty {
+  display: none;
+}
+
+.optimized-resume {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.optimized-resume h3 {
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+/* Add styles for centered text */
+.resume-line[style*="text-align: center"] {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* Add styles for indented text */
+.resume-line[style*="margin-left: 20px"] {
+  padding-left: 20px;
+}
+
+.resume-content p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.debug-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.debug-section h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.debug-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.debug-item {
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.debug-item h3 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.debug-item pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+  margin: 0;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+} 
