@@ -11,7 +11,7 @@ import re
 # Import from other modules
 from src.nlp.semantic_analyzer import SemanticAnalyzer
 
-class SimilarityCalculator:
+class SimilarityMatcher:
     """
     Calculate various similarity metrics between documents
     - Jaccard similarity

@@ -38,6 +38,7 @@ venv311/
 ENV/
 env/
 *.pyc
+atspass/
 
 # Distribution / packaging
 .Python
@@ -55,4 +56,65 @@ var/
 wheels/
 *.egg-info/
 .installed.cfg
-*.egg 
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# API keys and secrets
+api_keys.py
+secrets.py
+API_CONFIG.py
+*.pem
+
+# Database files
+*.db
+*.sqlite3
+*.sqlite
+
+# Log files
+*.log
+logs/
+
+# OS specific
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Local data files
+data/local/
+uploads/
+downloads/
+
+# Streamlit
+.streamlit/secrets.toml
+.streamlit/config.toml
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Sphinx documentation
+docs/_build/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json

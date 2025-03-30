@@ -21,3 +21,6 @@ plotly>=5.3.1
 # Utilities
 python-Levenshtein>=0.12.2
 tqdm>=4.65.0
+
+werkzeug>=2.0.1
+docx2txt>=0.8.0
