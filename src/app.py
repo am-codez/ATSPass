@@ -150,7 +150,12 @@ def render_analysis_page():
         keyword_cols = st.columns(3)
         for i, keyword in enumerate(missing_keywords):
             col_idx = i % 3
-            keyword_cols[col_idx].markdown(f"- {keyword}")
+            # Handle both string and object formats for keywords
+            if isinstance(keyword, dict):
+                keyword_text = keyword.get('text', '')
+            else:
+                keyword_text = keyword
+            keyword_cols[col_idx].markdown(f"- {keyword_text}")
     else:
         st.info("No missing keywords found.")
     
@@ -311,6 +316,32 @@ def analyze_resume_job_match(resume_text: str, job_text: str) -> Dict[str, Any]:
         missing_skills = gap_analysis.get('skills_gap_analysis', {}).get('missing_skills', [])
         # Convert string skills to dictionary format with 'text' key
         missing_keywords = [{'text': skill} for skill in missing_skills]
+        
+        # If we have very few missing keywords, extract more from job description
+        if len(missing_keywords) <= 1:
+            # Extract the most important keywords from the job
+            resume_text_lower = resume_text.lower()
+            additional_keywords = []
+            for kw_dict in job_keywords:
+                keyword = kw_dict['text']
+                # Only add keyword if it's not in the resume
+                if keyword.lower() not in resume_text_lower:
+                    additional_keywords.append({'text': keyword})
+                    
+                # Limit to 10 missing keywords total
+                if len(missing_keywords) + len(additional_keywords) >= 10:
+                    break
+            
+            # Add the additional keywords to our missing keywords
+            missing_keywords.extend(additional_keywords)
+            # Remove duplicates
+            unique_keywords = []
+            seen = set()
+            for kw in missing_keywords:
+                if kw['text'].lower() not in seen:
+                    unique_keywords.append(kw)
+                    seen.add(kw['text'].lower())
+            missing_keywords = unique_keywords[:10]  # Limit to top 10 keywords
         
         # Calculate match score (weighted average of skills, experience, and education)
         match_score = gap_analysis.get('overall_match_score', 0) * 100
