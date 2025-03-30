@@ -101,13 +101,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     body: formData
                 });
 
+                const result = await response.json();
+                
                 if (!response.ok) {
-                    const errorData = await response.text();
-                    console.error("Server error:", errorData);
-                    throw new Error(errorData || 'Analysis failed');
+                    console.error("Server error:", result.error);
+                    throw new Error(result.error || 'Analysis failed');
                 }
 
-                const result = await response.json();
                 console.log("Analysis results received:", result);
 
                 // Update match score

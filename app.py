@@ -4,6 +4,17 @@ import os
 import traceback
 from resume_parser import analyze_and_modify_resume
 import tempfile
+import nltk
+from fpdf import FPDF
+import io
+
+# Load OpenAI API key from environment variable
+OPENAI_API_KEY = ''
+if not OPENAI_API_KEY:
+    print("Warning: OPENAI_API_KEY environment variable is not set")
+    print("Please set it using: export OPENAI_API_KEY='your-api-key-here'")
+
+nltk.download('punkt_tab')
 
 app = Flask(__name__, static_folder='static')
 CORS(app)  # Enable CORS for all routes
@@ -26,6 +37,9 @@ def serve_static(filename):
 @app.route('/api/analyze', methods=['POST'])
 def analyze_resume():
     try:
+        if not OPENAI_API_KEY:
+            return jsonify({'error': 'OpenAI API key is not configured. Please set the OPENAI_API_KEY environment variable.'}), 500
+            
         print("API request received for /api/analyze")
         
         # Get text data from the request
@@ -88,39 +102,39 @@ def download_analysis():
         if not data:
             return jsonify({'error': 'No data provided'}), 400
         
-        # Create a temporary file for the analysis
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.txt', mode='w', encoding='utf-8') as temp_file:
-            # Write the analysis to the file
-            temp_file.write("Resume Analysis and Modification Results\n")
-            temp_file.write("-" * 50 + "\n\n")
-            
-            temp_file.write("Keywords from Job Description:\n")
-            if 'keywords' in data and isinstance(data['keywords'], dict):
-                for keyword, synonyms in data['keywords'].items():
-                    temp_file.write(f"\n{keyword}:\n")
-                    for synonym in synonyms:
-                        temp_file.write(f"- {synonym}\n")
-            
-            temp_file.write("\nOriginal Resume:\n")
-            temp_file.write("-" * 50 + "\n")
-            temp_file.write(data.get('originalResume', ''))
-            
-            temp_file.write("\n\nModified Resume:\n")
-            temp_file.write("-" * 50 + "\n")
-            temp_file.write(data.get('modifiedResume', ''))
-            
-            temp_file.write("\n\nJob Description:\n")
-            temp_file.write("-" * 50 + "\n")
-            temp_file.write(data.get('jobDescription', ''))
-            
-            temp_file_path = temp_file.name
+        # Create PDF
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
         
-        # Send the file
+        # Add content to PDF
+        pdf.cell(200, 10, txt="Resume Analysis and Modification Results", ln=True, align='C')
+        pdf.ln(10)
+        
+        # Add match scores
+        pdf.cell(200, 10, txt=f"Initial Match Score: {data.get('match_score', 0)}%", ln=True)
+        pdf.cell(200, 10, txt=f"Enhanced Match Score: {data.get('enhanced_score', 0)}%", ln=True)
+        pdf.ln(10)
+        
+        # Add keywords
+        pdf.cell(200, 10, txt="Missing Keywords:", ln=True)
+        for keyword in data.get('missing_keywords', []):
+            pdf.cell(200, 10, txt=f"- {keyword}", ln=True)
+        pdf.ln(10)
+        
+        # Add enhanced resume
+        pdf.cell(200, 10, txt="Enhanced Resume:", ln=True)
+        pdf.multi_cell(0, 10, txt=data.get('enhanced_resume', ''))
+        
+        # Save PDF to memory
+        pdf_bytes = pdf.output(dest='S').encode('latin-1')
+        
+        # Create response
         return send_file(
-            temp_file_path,
+            io.BytesIO(pdf_bytes),
+            mimetype='application/pdf',
             as_attachment=True,
-            download_name='resume_analysis.txt',
-            mimetype='text/plain'
+            download_name='resume_analysis.pdf'
         )
         
     except Exception as e:
@@ -129,4 +143,4 @@ def download_analysis():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001) 
+    app.run(debug=True, port=5002) 
