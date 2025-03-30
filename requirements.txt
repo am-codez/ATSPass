@@ -1,0 +1,10 @@
+openai>=1.0.0
+python-dotenv>=0.19.0
+fastapi>=0.68.0
+uvicorn>=0.15.0
+pydantic>=1.8.2
+spacy>=3.0.0
+python-multipart>=0.0.5
+PyPDF2>=3.0.0
+langchain>=0.0.300
+tiktoken>=0.5.1 
