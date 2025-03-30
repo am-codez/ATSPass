@@ -1,0 +1,9 @@
+spacy==3.8.4
+flask==3.1.0
+flask-cors==5.0.1
+gensim==4.3.3
+nltk==3.9.1
+python-dotenv==1.1.0
+PyPDF2==3.0.1
+numpy==1.26.4
+scipy==1.13.1 
