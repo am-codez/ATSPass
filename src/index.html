@@ -12,48 +12,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-    <!-- Retro Background Effects -->
-    <div class="background-effects">
-        <div class="grid"></div>
-        <div class="scanlines"></div>
-        <div class="noise"></div>
-        <div class="flicker"></div>
-    </div>
-
     <div class="window">
         <div class="window-header">
-            <div class="close-button" id="close-button"></div>
+            <div class="close-button"></div>
             <div class="folder-icon"></div>
             <span>ATSPass.app</span>
-            <!-- Add retro decorative elements -->
-            <div class="header-decorations">
-                <span class="decoration-dot"></span>
-                <span class="decoration-dot"></span>
-                <span class="decoration-dot"></span>
-            </div>
         </div>
 
         <div class="main-title">
-            <h1>ATSPass_</h1>
+            <h1>ATSPass</h1>
             <p class="subtitle">Optimize Your Resume for ATS.</p>
-            <div class="retro-badge">v1.0</div>
         </div>
 
         <nav class="tab-container">
             <div class="tab-counter">1/3</div>
             <div class="tabs">
-                <button class="tab-button active" data-tab="input">
-                    <span class="tab-icon">📄</span>Input
-                </button>
-                <button class="tab-button" data-tab="analysis">
-                    <span class="tab-icon">📊</span>Analysis
-                </button>
-                <button class="tab-button" data-tab="enhanced">
-                    <span class="tab-icon">✨</span>Enhance
-                </button>
+                <button class="tab-button active" data-tab="input">Input</button>
+                <button class="tab-button" data-tab="analysis">Analysis</button>
+                <button class="tab-button" data-tab="enhanced">Enhance</button>
             </div>
         </nav>
 
@@ -183,34 +163,10 @@
                 </div>
             </div>
         </div>
-
-        <!-- Add retro corner decorations -->
-        <div class="corner-decoration top-left"></div>
-        <div class="corner-decoration top-right"></div>
-        <div class="corner-decoration bottom-left"></div>
-        <div class="corner-decoration bottom-right"></div>
-    </div>
-
-    <!-- Error Popup with enhanced retro styling -->
-    <div id="error-popup" class="error-popup">
-        <div class="error-popup-content">
-            <div class="error-header">
-                <div class="error-icon">⚠️</div>
-                <h3>SYSTEM ERROR</h3>
-                <div class="error-decoration"></div>
-            </div>
-            <div class="error-message">
-                <span class="error-code">[ERR-404]</span>
-                Close this website and you'll end up unemployed
-                <div class="error-glitch-text">CRITICAL FAILURE</div>
-            </div>
-            <button id="error-ok-btn" class="error-button">
-                <span class="button-text">ABORT</span>
-            </button>
-        </div>
     </div>
 
     <div class="dither-overlay"></div>
+
     <script src="script.js"></script>
 </body>
 

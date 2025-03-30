@@ -28,27 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleDiffBtn = document.getElementById('toggle-diff-btn');
     const downloadResumeBtn = document.getElementById('download-resume-btn');
 
-    // Error popup elements
-    const closeButton = document.getElementById('close-button');
-    const errorPopup = document.getElementById('error-popup');
-    const errorOkBtn = document.getElementById('error-ok-btn');
-
-    // Handle close button click - show error popup
-    if (closeButton) {
-        closeButton.addEventListener('click', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            errorPopup.classList.add('show');
-        });
-    }
-
-    // Handle OK button click on error popup
-    if (errorOkBtn) {
-        errorOkBtn.addEventListener('click', function () {
-            errorPopup.classList.remove('show');
-        });
-    }
-
     // Handle resume PDF upload
     if (resumeFile) {
         resumeFile.addEventListener('change', async function (event) {
@@ -247,16 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 result.missing_keywords.forEach(keyword => {
                     const keywordSpan = document.createElement('span');
                     keywordSpan.className = 'keyword';
-
-                    // Handle both string and object formats
-                    if (typeof keyword === 'string') {
-                        keywordSpan.textContent = keyword;
-                    } else if (typeof keyword === 'object') {
-                        // Get the keyword text from either 'text', 'name', or 'skill' property
-                        const keywordText = keyword.text || keyword.name || keyword.skill || JSON.stringify(keyword);
-                        keywordSpan.textContent = keywordText;
-                    }
-
+                    keywordSpan.textContent = keyword;
                     missingKeywords.appendChild(keywordSpan);
                 });
             } else {
@@ -394,20 +364,20 @@ document.addEventListener('DOMContentLoaded', function () {
             ];
 
             stats.forEach(stat => {
-                const statItem = document.createElement('div');
-                statItem.className = 'stat-item';
+                const statDiv = document.createElement('div');
+                statDiv.className = 'optimization-stat';
 
-                const label = document.createElement('span');
-                label.className = 'stat-label';
-                label.textContent = stat.label;
+                const labelSpan = document.createElement('span');
+                labelSpan.className = 'stat-label';
+                labelSpan.textContent = stat.label;
 
-                const value = document.createElement('span');
-                value.className = 'stat-value';
-                value.textContent = stat.value;
+                const valueSpan = document.createElement('span');
+                valueSpan.className = 'stat-value';
+                valueSpan.textContent = stat.value;
 
-                statItem.appendChild(label);
-                statItem.appendChild(value);
-                optimizationSummary.appendChild(statItem);
+                statDiv.appendChild(labelSpan);
+                statDiv.appendChild(valueSpan);
+                optimizationSummary.appendChild(statDiv);
             });
         }
 
@@ -415,59 +385,59 @@ document.addEventListener('DOMContentLoaded', function () {
         if (enhancedBullets && result.enhanced_bullets) {
             enhancedBullets.innerHTML = '';
 
-            if (result.enhanced_bullets.length > 0) {
-                result.enhanced_bullets.forEach(bullet => {
-                    const bulletDiv = document.createElement('div');
-                    bulletDiv.className = 'bullet-comparison';
+            result.enhanced_bullets.forEach(bullet => {
+                const bulletDiv = document.createElement('div');
+                bulletDiv.className = 'bullet-comparison';
 
-                    // Original bullet
-                    const originalDiv = document.createElement('div');
+                // Original bullet
+                const originalDiv = document.createElement('div');
 
-                    const originalLabel = document.createElement('div');
-                    originalLabel.className = 'bullet-label';
-                    originalLabel.textContent = 'Original';
+                const originalLabel = document.createElement('div');
+                originalLabel.className = 'bullet-label';
+                originalLabel.textContent = 'Original';
 
-                    const originalText = document.createElement('div');
-                    originalText.className = 'bullet-original';
-                    originalText.textContent = bullet.original || '';
+                const originalText = document.createElement('div');
+                originalText.className = 'bullet-original';
+                originalText.textContent = bullet.original;
 
-                    originalDiv.appendChild(originalLabel);
-                    originalDiv.appendChild(originalText);
+                originalDiv.appendChild(originalLabel);
+                originalDiv.appendChild(originalText);
 
-                    // Enhanced bullet
-                    const enhancedDiv = document.createElement('div');
+                // Enhanced bullet
+                const enhancedDiv = document.createElement('div');
 
-                    const enhancedLabel = document.createElement('div');
-                    enhancedLabel.className = 'bullet-label';
-                    enhancedLabel.textContent = 'Enhanced';
+                const enhancedLabel = document.createElement('div');
+                enhancedLabel.className = 'bullet-label';
+                enhancedLabel.textContent = 'Enhanced';
 
-                    const enhancedText = document.createElement('div');
-                    enhancedText.className = 'bullet-enhanced';
-                    enhancedText.textContent = bullet.enhanced || '';
+                const enhancedText = document.createElement('div');
+                enhancedText.className = 'bullet-enhanced';
+                enhancedText.textContent = bullet.enhanced;
 
-                    enhancedDiv.appendChild(enhancedLabel);
-                    enhancedDiv.appendChild(enhancedText);
+                enhancedDiv.appendChild(enhancedLabel);
+                enhancedDiv.appendChild(enhancedText);
 
-                    // Added keywords if any
-                    if (bullet.matched_keywords && bullet.matched_keywords.length > 0) {
-                        const keywordsDiv = document.createElement('div');
-                        keywordsDiv.className = 'bullet-keywords';
+                // Added keywords if any
+                if (bullet.matched_keywords && bullet.matched_keywords.length > 0) {
+                    const keywordsDiv = document.createElement('div');
+                    keywordsDiv.className = 'bullet-keywords';
 
-                        bullet.matched_keywords.forEach(keyword => {
-                            const keywordSpan = document.createElement('span');
-                            keywordSpan.className = 'bullet-keyword';
-                            keywordSpan.textContent = keyword;
-                            keywordsDiv.appendChild(keywordSpan);
-                        });
+                    bullet.matched_keywords.forEach(keyword => {
+                        const keywordSpan = document.createElement('span');
+                        keywordSpan.className = 'bullet-keyword';
+                        keywordSpan.textContent = keyword;
+                        keywordsDiv.appendChild(keywordSpan);
+                    });
 
-                        enhancedDiv.appendChild(keywordsDiv);
-                    }
+                    enhancedDiv.appendChild(keywordsDiv);
+                }
 
-                    bulletDiv.appendChild(originalDiv);
-                    bulletDiv.appendChild(enhancedDiv);
-                    enhancedBullets.appendChild(bulletDiv);
-                });
-            } else {
+                bulletDiv.appendChild(originalDiv);
+                bulletDiv.appendChild(enhancedDiv);
+                enhancedBullets.appendChild(bulletDiv);
+            });
+
+            if (result.enhanced_bullets.length === 0) {
                 enhancedBullets.textContent = 'No bullet points enhanced';
             }
         }
@@ -476,24 +446,24 @@ document.addEventListener('DOMContentLoaded', function () {
         if (atsTipsList && result.ats_tips) {
             atsTipsList.innerHTML = '';
 
-            if (result.ats_tips.length > 0) {
-                result.ats_tips.forEach(tip => {
-                    const tipDiv = document.createElement('div');
-                    tipDiv.className = 'ats-tip';
+            result.ats_tips.forEach(tip => {
+                const tipDiv = document.createElement('div');
+                tipDiv.className = 'ats-tip';
 
-                    const tipTitle = document.createElement('div');
-                    tipTitle.className = 'ats-tip-title';
-                    tipTitle.textContent = tip.title || '';
+                const tipTitle = document.createElement('div');
+                tipTitle.className = 'ats-tip-title';
+                tipTitle.textContent = tip.title;
 
-                    const tipDesc = document.createElement('div');
-                    tipDesc.className = 'ats-tip-description';
-                    tipDesc.textContent = tip.description || '';
+                const tipDesc = document.createElement('div');
+                tipDesc.className = 'ats-tip-description';
+                tipDesc.textContent = tip.description;
 
-                    tipDiv.appendChild(tipTitle);
-                    tipDiv.appendChild(tipDesc);
-                    atsTipsList.appendChild(tipDiv);
-                });
-            } else {
+                tipDiv.appendChild(tipTitle);
+                tipDiv.appendChild(tipDesc);
+                atsTipsList.appendChild(tipDiv);
+            });
+
+            if (result.ats_tips.length === 0) {
                 atsTipsList.textContent = 'No ATS tips available';
             }
         }
@@ -508,9 +478,30 @@ document.addEventListener('DOMContentLoaded', function () {
             enhancedResumeText.textContent = result.enhanced_resume;
         }
     }
+
+    // Function to render diff view of resume
+    function renderDiffResume() {
+        if (!window.originalResumeText || !window.enhancedResumeText || !enhancedResumeText) return;
+
+        // In a real implementation, we would use a diff algorithm library
+        // For simplicity, we'll just highlight the entire enhanced text
+        enhancedResumeText.innerHTML = '';
+
+        const diffSpan = document.createElement('span');
+        diffSpan.className = 'diff-added';
+        diffSpan.textContent = window.enhancedResumeText;
+
+        enhancedResumeText.appendChild(diffSpan);
+    }
+
+    // Function to render clean version of enhanced resume
+    function renderCleanResume() {
+        if (!window.enhancedResumeText || !enhancedResumeText) return;
+
+        enhancedResumeText.textContent = window.enhancedResumeText;
+    }
 });
 
-// Function to switch between tabs
 function showTab(tabId) {
     console.log("Switching to tab:", tabId);
 
@@ -537,39 +528,4 @@ function showTab(tabId) {
     if (activeTab) {
         activeTab.classList.add('active');
     }
-}
-
-// Render functions for enhanced resume
-function renderDiffResume() {
-    const enhancedResumeText = document.getElementById('enhanced-resume-text');
-    if (!window.originalResumeText || !window.enhancedResumeText || !enhancedResumeText) return;
-
-    // In a real implementation, we would use a diff algorithm library
-    // For simplicity, we'll just highlight the entire enhanced text
-    enhancedResumeText.innerHTML = '';
-
-    const diffSpan = document.createElement('span');
-    diffSpan.className = 'diff-added';
-    diffSpan.textContent = window.enhancedResumeText;
-
-    enhancedResumeText.appendChild(diffSpan);
-}
-
-function renderCleanResume() {
-    const enhancedResumeText = document.getElementById('enhanced-resume-text');
-    if (!window.enhancedResumeText || !enhancedResumeText) return;
-
-    enhancedResumeText.textContent = window.enhancedResumeText;
-}
-
-// Add event listener for the standalone ENHANCE RESUME button on the analysis page
-document.addEventListener('DOMContentLoaded', function () {
-    const standaloneEnhanceBtn = document.querySelector('.button-container button.enhance-button');
-    if (standaloneEnhanceBtn) {
-        standaloneEnhanceBtn.addEventListener('click', function () {
-            // This is the large red ENHANCE RESUME button at the bottom of the analysis page
-            console.log("Standalone enhance button clicked");
-            getEnhancements();
-        });
-    }
-});
+} 

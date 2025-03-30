@@ -1,18 +1,30 @@
-# ATSPass - Advanced Resume Optimization Tool
+# Resume Optimization System
 
-ATSPass is an intelligent resume optimization tool that helps job seekers improve their resumes by analyzing job descriptions and suggesting improvements. It uses advanced NLP techniques to identify missing keywords and optimize content while maintaining readability.
+A simple NLP-based system that analyzes resumes against job descriptions to provide optimization suggestions.
 
 ## Features
 
-- **Smart Keyword Analysis**: Identifies important keywords from job descriptions
-- **Semantic Matching**: Uses spaCy and Word2Vec for accurate semantic similarity calculations
-- **Intelligent Optimization**: Suggests improvements while maintaining natural language
-- **Section-Aware Processing**: Understands and preserves resume structure
-- **Format Preservation**: Maintains professional resume formatting
-- **Real-time Analysis**: Provides instant feedback and optimization suggestions
+- PDF and DOCX resume parsing
+- Job description analysis
+- Skills matching
+- Improvement recommendations
 
+## Project Structure
 
-1. Create a virtual environment (recommended):
+```
+NLP_ATS/
+├── src/
+│   ├── parser.py      # Document parsing
+│   ├── matcher.py     # Resume-job matching
+│   └── constants.py   # Predefined values
+├── app.py            # Streamlit interface
+├── requirements.txt  # Dependencies
+└── README.md        # Documentation
+```
+
+## Setup
+
+1. Create a virtual environment:
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -23,32 +35,28 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. Download the spaCy model:
+3. Download spaCy model:
 ```bash
-python -m spacy download en_core_web_md
+python -m spacy download en_core_web_sm
 ```
 
+4. Run the application:
+```bash
+streamlit run app.py
+```
 
 ## Usage
 
-1. Start the application:
-```bash
-python -m atspass
-```
+1. Upload your resume (PDF or DOCX)
+2. Paste the job description
+3. Get analysis results:
+   - Match score
+   - Skills comparison
+   - Improvement suggestions
 
-2. Open your web browser and navigate to:
-```
-http://localhost:5000
-```
+## Technologies Used
 
-3. Enter your resume text and job description in the web interface
-
-4. Click "Analyze" to get optimization suggestions
-
-
-
-## Acknowledgments
-
-- spaCy team for the excellent NLP library
-- NLTK team for the comprehensive NLP toolkit
-- Gensim team for the Word2Vec implementation
+- Python 3.8+
+- spaCy for NLP
+- scikit-learn for text matching
+- Streamlit for UI
