@@ -1,34 +1,62 @@
-# Resume Optimizer
-A React-based application that helps optimize your resume for specific job descriptions by analyzing keyword matches and suggesting improvements.
+# Resume Optimization System
+
+A simple NLP-based system that analyzes resumes against job descriptions to provide optimization suggestions.
 
 ## Features
-- Upload and analyze PDF resumes
-- Process job descriptions to extract relevant keywords
-- Calculate initial match percentage between resume and job description
-- Optimize resume content using synonym replacement
-- Maintain professional tone while improving keyword matches
-- Generate optimized PDF output
 
-## Prerequisites
-- Node.js (v14 or higher)
-- npm (v6 or higher)
+- PDF and DOCX resume parsing
+- Job description analysis
+- Skills matching
+- Improvement recommendations
 
-## To run
-Run $npm start
-The application will open in your default browser at `http://localhost:3000`.
+## Project Structure
+
+```
+NLP_ATS/
+├── src/
+│   ├── parser.py      # Document parsing
+│   ├── matcher.py     # Resume-job matching
+│   └── constants.py   # Predefined values
+├── app.py            # Streamlit interface
+├── requirements.txt  # Dependencies
+└── README.md        # Documentation
+```
+
+## Setup
+
+1. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Download spaCy model:
+```bash
+python -m spacy download en_core_web_sm
+```
+
+4. Run the application:
+```bash
+streamlit run app.py
+```
 
 ## Usage
-1. Paste the job description into the text area
-2. Upload your resume as a PDF file
-3. Click "Analyze and Optimize"
-4. View the initial match percentage
-5. Wait for the optimization process to complete
-6. View the final match percentage
-7. Download the optimized resume
 
-## Limitations
+1. Upload your resume (PDF or DOCX)
+2. Paste the job description
+3. Get analysis results:
+   - Match score
+   - Skills comparison
+   - Improvement suggestions
 
-- The synonym dictionary is limited to common professional terms
-- The optimization process maintains the original structure of the resume
-- Word count increase is limited to 30 words
-- The application works best with well-formatted PDF resumes
+## Technologies Used
+
+- Python 3.8+
+- spaCy for NLP
+- scikit-learn for text matching
+- Streamlit for UI

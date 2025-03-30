@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATSPass - Resume Enhancement</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="window">
+        <div class="window-header">
+            <div class="close-button"></div>
+            <div class="folder-icon"></div>
+            <span>ATSPass.app</span>
+        </div>
+
+        <div class="main-title">
+            <h1>ATSPass</h1>
+            <p class="subtitle">Optimize Your Resume for ATS.</p>
+        </div>
+
+        <nav class="tab-container">
+            <div class="tab-counter">1/3</div>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="input">Input</button>
+                <button class="tab-button" data-tab="analysis">Analysis</button>
+                <button class="tab-button" data-tab="enhanced">Enhance</button>
+            </div>
+        </nav>
+
+        <!-- Tab 1: Input -->
+        <div class="tab-content active" id="input">
+            <div class="input-section">
+                <div class="input-group">
+                    <div class="folder-icon"></div>
+                    <label>Job Description</label>
+                    <div class="input-area">
+                        <textarea id="job-description" placeholder="Paste job description here..."></textarea>
+                        <div class="file-upload">
+                            <label for="job-desc-file" class="file-label">Upload PDF</label>
+                            <input type="file" id="job-desc-file" accept=".pdf" class="file-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="folder-icon"></div>
+                    <label>Your Resume</label>
+                    <div class="input-area">
+                        <textarea id="resume-text" placeholder="Paste your resume here..."></textarea>
+                        <div class="file-upload">
+                            <label for="resume-file" class="file-label">Upload PDF</label>
+                            <input type="file" id="resume-file" accept=".pdf" class="file-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button id="analyze-btn" class="analyze-button">Analyze Match</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Analysis -->
+        <div class="tab-content" id="analysis">
+            <div class="results-grid">
+                <div class="metric-item">
+                    <span class="metric-label">Match Score</span>
+                    <span id="match-score" class="metric-value">0%</span>
+                    <div class="score-meter">
+                        <div id="score-meter-fill" class="score-meter-fill"></div>
+                    </div>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-label">Key Recommendations</span>
+                    <div id="recommendations-list" class="recommendations-list"></div>
+                </div>
+
+                <div class="metric-item keywords-section">
+                    <span class="metric-label">Missing Keywords</span>
+                    <div id="missing-keywords" class="keyword-list"></div>
+                </div>
+
+                <div class="metric-item gap-section">
+                    <span class="metric-label">Gap Analysis</span>
+                    <div id="gap-analysis" class="gap-analysis">
+                        <div class="gap-item" id="skills-gap">
+                            <span class="gap-label">Skills</span>
+                            <div class="gap-meter">
+                                <div class="gap-meter-fill" id="skills-gap-meter"></div>
+                            </div>
+                        </div>
+                        <div class="gap-item" id="experience-gap">
+                            <span class="gap-label">Experience</span>
+                            <div class="gap-meter">
+                                <div class="gap-meter-fill" id="experience-gap-meter"></div>
+                            </div>
+                        </div>
+                        <div class="gap-item" id="education-gap">
+                            <span class="gap-label">Education</span>
+                            <div class="gap-meter">
+                                <div class="gap-meter-fill" id="education-gap-meter"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="enhance-button" data-tab="enhanced">Enhance Resume</button>
+            </div>
+        </div>
+
+        <!-- Tab 3: Enhanced -->
+        <div class="tab-content" id="enhanced">
+            <div class="results-grid">
+                <div class="metric-item">
+                    <span class="metric-label">Enhanced Match Score</span>
+                    <span id="enhanced-score" class="metric-value">0%</span>
+                    <div class="score-meter">
+                        <div id="enhanced-score-meter-fill" class="score-meter-fill"></div>
+                    </div>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-label">Optimization Summary</span>
+                    <div id="optimization-summary" class="optimization-summary"></div>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-label">Added Keywords</span>
+                    <div id="added-keywords" class="keyword-list"></div>
+                </div>
+
+                <div class="metric-item keywords-section">
+                    <span class="metric-label">Enhanced Bullet Points</span>
+                    <div id="enhanced-bullets" class="enhanced-bullets">
+                        <!-- Bullet point comparisons will be added here -->
+                    </div>
+                </div>
+
+                <div class="enhanced-resume">
+                    <span class="metric-label">Enhanced Resume</span>
+                    <div class="resume-actions">
+                        <button id="toggle-diff-btn" class="action-button">Show Changes</button>
+                        <button id="download-resume-btn" class="action-button">Download</button>
+                    </div>
+                    <div id="enhanced-resume-text" class="resume-output"></div>
+                </div>
+
+                <div class="metric-item ats-tips">
+                    <span class="metric-label">ATS Optimization Tips</span>
+                    <div id="ats-tips-list" class="ats-tips-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dither-overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
