@@ -21,6 +21,12 @@ plotly>=5.3.1
 # Utilities
 python-Levenshtein>=0.12.2
 tqdm>=4.65.0
+requests>=2.26.0  # Added for API requests in Recommender class
+regex>=2021.8.3   # Added for more advanced regex operations
 
+# File processing
 werkzeug>=2.0.1
 docx2txt>=0.8.0
+
+# Optional Flask integration
+flask>=2.0.1  # Added based on the Flask integration in src/app.py

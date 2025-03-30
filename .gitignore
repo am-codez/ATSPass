@@ -39,6 +39,7 @@ ENV/
 env/
 *.pyc
 atspass/
+fresh_env/
 
 # Distribution / packaging
 .Python
